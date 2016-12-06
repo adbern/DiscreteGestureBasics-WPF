@@ -55,7 +55,7 @@ namespace Transmitter
         }
 
         private static readonly IPEndPoint Destination = new IPEndPoint(IPAddress.Loopback, Program.Port);
-        private static readonly int SourcePort = 10024;
+        private static readonly int SourcePort = 10025;
 
         private CancellationTokenSource mCancellationTokenSource;
         private Task mSendPacketsTask;

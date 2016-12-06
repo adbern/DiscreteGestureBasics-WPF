@@ -57,6 +57,8 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
             //OscMessage =  
             transmitter.Start(message);
 
+            transmitter.Stop();
+
             //transmitter.Start(bundle);
         }
 
@@ -202,15 +204,6 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
         }
 
 
-
-
-        private void WriteConsole()
-        {
-
-            
-
-        }
-
         /// <summary>
         /// Handles gesture detection results arriving from the sensor for the associated body tracking Id
         /// </summary>
@@ -219,7 +212,7 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
         private void Reader_GestureFrameArrived(object sender, VisualGestureBuilderFrameArrivedEventArgs e)
         {
 
-            //OSCMethod();
+            OSCMethod();
 
             VisualGestureBuilderFrameReference frameReference = e.FrameReference;
             using (VisualGestureBuilderFrame frame = frameReference.AcquireFrame())
