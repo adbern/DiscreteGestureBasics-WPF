@@ -13,7 +13,6 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
     //using System.Threading;
     //using System.Net;
     //using Bespoke.Common.Osc;
-
     
 
     /// <summary>

@@ -49,7 +49,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Bespoke.Common.Osc\Bespoke.Common.Osc.csproj">
+    <ProjectReference Include="..\..\Bespoke.Common.Osc\Bespoke.Common.Osc.csproj">
       <Project>{35d30dcb-74d1-40a2-9d22-40e1394ffc09}</Project>
       <Name>Bespoke.Common.Osc</Name>
     </ProjectReference>
