@@ -16,7 +16,9 @@ namespace Transmitter
             OscPacket.UdpClient = new UdpClient(SourcePort);
 
             mCancellationTokenSource = new CancellationTokenSource();
-            mSendPacketsTask = Task.Run(() => SendPacketsAsync(packet, mCancellationTokenSource.Token));
+            packet.Send(Destination);
+
+            //mSendPacketsTask = Task.Run(() => SendPacketsAsync(packet, mCancellationTokenSource.Token));
         }
 
         public void Stop()

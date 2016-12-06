@@ -57,10 +57,9 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
             //OscMessage =  
             transmitter.Start(message);
 
-            transmitter.Stop();
-
             //transmitter.Start(bundle);
         }
+
 
 
 
@@ -86,6 +85,8 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
         /// <param name="gestureResultView">GestureResultView object to store gesture results of a single body to</param>
         public GestureDetector(KinectSensor kinectSensor, GestureResultView gestureResultView)
         {
+
+
             if (kinectSensor == null)
             {
                 throw new ArgumentNullException("kinectSensor");
@@ -212,7 +213,6 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
         private void Reader_GestureFrameArrived(object sender, VisualGestureBuilderFrameArrivedEventArgs e)
         {
 
-            OSCMethod();
 
             VisualGestureBuilderFrameReference frameReference = e.FrameReference;
             using (VisualGestureBuilderFrame frame = frameReference.AcquireFrame())
@@ -232,7 +232,10 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                                 DiscreteGestureResult result = null;
                                 discreteResults.TryGetValue(gesture, out result);
                                 Console.WriteLine(result.Detected);
-                               
+
+                                OSCMethod();
+
+
 
 
 
