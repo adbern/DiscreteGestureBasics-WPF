@@ -4,23 +4,64 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
+namespace Microsoft.Samples.Kinect.DiscreteGestureBasics 
 {
     using System;
     using System.Collections.Generic;
     using Microsoft.Kinect;
     using Microsoft.Kinect.VisualGestureBuilder;
+    using Transmitter;
+    using System.Diagnostics;
     //using System.Threading;
-    //using System.Net;
-    //using Bespoke.Common.Osc;
-    
+    using System.Net;
+    using Bespoke.Common.Osc;
+
 
     /// <summary>
     /// Gesture Detector class which listens for VisualGestureBuilderFrame events from the service
     /// and updates the associated GestureResultView object with the latest results for the 'Seated' gesture
     /// </summary>
+    /// 
+
+    public enum DemoType
+    {
+        Udp,
+        Tcp,
+        Multicast
+    }
+
     public class GestureDetector : IDisposable
     {
+
+        public static readonly int Port = 7000;
+
+
+        public static void OSCMethod()
+        {
+            Dictionary<DemoType, Type> transmitters = new Dictionary<DemoType, Type>()
+            {
+                { DemoType.Udp, typeof(UdpTransmitter) },
+                { DemoType.Tcp, typeof(TcpTransmitter) },
+                { DemoType.Multicast, typeof(MulticastTransmitter) }
+            };
+
+            //DemoType demoType = GetDemoType();
+            DemoType demoType = DemoType.Udp;
+            ITransmitter transmitter = Activator.CreateInstance(transmitters[demoType]) as ITransmitter;
+
+            IPEndPoint sourceEndPoint = new IPEndPoint(IPAddress.Loopback, Port);
+            OscMessage message = new OscMessage(sourceEndPoint, "/track2/connect");
+            message.Append(1);
+
+            // OscBundle bundle = CreateTestBundle();
+            //OscMessage =  
+            transmitter.Start(message);
+
+            //transmitter.Start(bundle);
+        }
+
+
+
         /// <summary> Path to the gesture database that was trained with VGB </summary>
         private readonly string gestureDatabase = @"Database\Pedestrian.gbd";
 
@@ -52,9 +93,9 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
             {
                 throw new ArgumentNullException("gestureResultView");
             }
-            
+
             this.GestureResultView = gestureResultView;
-            
+
             // create the vgb source. The associated body tracking ID will be set when a valid body frame arrives from the sensor.
             this.vgbFrameSource = new VisualGestureBuilderFrameSource(kinectSensor, 0);
             this.vgbFrameSource.TrackingIdLost += this.Source_TrackingIdLost;
@@ -84,6 +125,8 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
 
         /// <summary> Gets the GestureResultView object which stores the detector results for display in the UI </summary>
         public GestureResultView GestureResultView { get; private set; }
+
+
 
         /// <summary>
         /// Gets or sets the body tracking ID associated with the current detector
@@ -158,6 +201,16 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
             }
         }
 
+
+
+
+        private void WriteConsole()
+        {
+
+            
+
+        }
+
         /// <summary>
         /// Handles gesture detection results arriving from the sensor for the associated body tracking Id
         /// </summary>
@@ -165,6 +218,9 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
         /// <param name="e">event arguments</param>
         private void Reader_GestureFrameArrived(object sender, VisualGestureBuilderFrameArrivedEventArgs e)
         {
+
+            //OSCMethod();
+
             VisualGestureBuilderFrameReference frameReference = e.FrameReference;
             using (VisualGestureBuilderFrame frame = frameReference.AcquireFrame())
             {
@@ -183,6 +239,9 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                                 DiscreteGestureResult result = null;
                                 discreteResults.TryGetValue(gesture, out result);
                                 Console.WriteLine(result.Detected);
+                               
+
+
 
                                 if (result != null)
                                 {

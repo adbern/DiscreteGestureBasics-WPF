@@ -4,6 +4,7 @@ using System.Net;
 using System.Collections.Generic;
 using System.Drawing;
 using Bespoke.Common.Osc;
+using System.Diagnostics;
 
 namespace Transmitter
 {
@@ -28,7 +29,8 @@ namespace Transmitter
                 { DemoType.Multicast, typeof(MulticastTransmitter) }
             };
 
-            DemoType demoType = GetDemoType();
+            //DemoType demoType = GetDemoType();
+            DemoType demoType = DemoType.Udp;
             ITransmitter transmitter = Activator.CreateInstance(transmitters[demoType]) as ITransmitter;
 
             IPEndPoint sourceEndPoint = new IPEndPoint(IPAddress.Loopback, Port);
@@ -43,6 +45,14 @@ namespace Transmitter
             // Stop the transmitter, and exit, when a key is pressed.
             Console.ReadKey();
             transmitter.Stop();
+        }
+
+
+        public static void testMethod()
+        {
+
+            Console.WriteLine("test line");
+
         }
 
         private static DemoType GetDemoType()

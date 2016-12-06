@@ -155,6 +155,18 @@
       <Project>{35d30dcb-74d1-40a2-9d22-40e1394ffc09}</Project>
       <Name>Bespoke.Common.Osc</Name>
     </ProjectReference>
+    <ProjectReference Include="Bespoke.Common\Bespoke.Common.csproj">
+      <Project>{f8a1578f-bebe-4bbe-ab11-a0496bdb746a}</Project>
+      <Name>Bespoke.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="Samples\CS\Receiver\Receiver.csproj">
+      <Project>{0bf0d909-8af2-4669-8cfa-06376bbd99ed}</Project>
+      <Name>Receiver</Name>
+    </ProjectReference>
+    <ProjectReference Include="Samples\CS\Transmitter\Transmitter.csproj">
+      <Project>{4f887c29-862b-428a-a021-5878079dc73e}</Project>
+      <Name>Transmitter</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
