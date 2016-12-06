@@ -10,9 +10,9 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
     using System.Collections.Generic;
     using Microsoft.Kinect;
     using Microsoft.Kinect.VisualGestureBuilder;
-    using System.Threading;
-    using System.Net;
-    using Bespoke.Common.Osc;
+    //using System.Threading;
+    //using System.Net;
+    //using Bespoke.Common.Osc;
 
     
 
