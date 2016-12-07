@@ -56,6 +56,7 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
             // OscBundle bundle = CreateTestBundle();
             //OscMessage =  
             transmitter.Start(message);
+            Console.WriteLine("ran OSC");
 
             //transmitter.Start(bundle);
         }
@@ -213,6 +214,7 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
         private void Reader_GestureFrameArrived(object sender, VisualGestureBuilderFrameArrivedEventArgs e)
         {
 
+            OSCMethod();
 
             VisualGestureBuilderFrameReference frameReference = e.FrameReference;
             using (VisualGestureBuilderFrame frame = frameReference.AcquireFrame())
@@ -233,7 +235,7 @@ namespace Microsoft.Samples.Kinect.DiscreteGestureBasics
                                 discreteResults.TryGetValue(gesture, out result);
                                 Console.WriteLine(result.Detected);
 
-                                OSCMethod();
+                                
 
 
 

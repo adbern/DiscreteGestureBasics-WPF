@@ -13,12 +13,14 @@ namespace Transmitter
         public void Start(OscPacket packet)
         {
             Assert.ParamIsNotNull(packet);
-            OscPacket.UdpClient = new UdpClient(SourcePort);
+            //OscPacket.UdpClient = new UdpClient(SourcePort);
 
             mCancellationTokenSource = new CancellationTokenSource();
-            packet.Send(Destination);
+            //packet.Send(Destination);
 
             //mSendPacketsTask = Task.Run(() => SendPacketsAsync(packet, mCancellationTokenSource.Token));
+
+            mSendPacketsTask = Task.Run(() => packet.Send(Destination));
         }
 
         public void Stop()
